@@ -53,28 +53,34 @@ public class ContentService {
     }
 
     public void update(Content fc) {
-        List<Value> relations = new ArrayList<>();
+        if(fc.getRightDouble() == null) {
+            fc.setRightDouble(0.0);
+        }
 
-        Value fillValue = contentMap.get(fc.getLeftValue().getName());
-        Value emptyValue = contentMap.get(fc.getRightValue().getName());
+        if (contentMap.containsKey(fc.getLeftValue().getName())){
+            List<Value> relations = new ArrayList<>();
 
-        Set<Value> fillList = fillValue.getRelations().keySet();
+            Value fillValue = contentMap.get(fc.getLeftValue().getName());
+            Value emptyValue = contentMap.get(fc.getRightValue().getName());
 
-        fillList.forEach(fill -> {
-            relations.add(fill);
-            Double value1 = fillValue.getValueFromMap(fill);
+            Set<Value> fillList = fillValue.getRelations().keySet();
 
-            for (Value rel : relations) {
-                Double value2 = rel.getValueFromMap(emptyValue);
+            fillList.forEach(fill -> {
+                relations.add(fill);
+                Double value1 = fillValue.getValueFromMap(fill);
 
-                if (value2 != null) {
-                    Double cnt = fc.getLeftDouble();
-                    fc.setRightDouble(value2 * value1 * cnt);
-                } else {
-                    fc.setRightDouble(0.0);
+                for (Value rel : relations) {
+                    Double value2 = rel.getValueFromMap(emptyValue);
+
+                    if (value2 != null) {
+                        Double cnt = fc.getLeftDouble();
+                        fc.setRightDouble(value2 * value1 * cnt);
+                    } else {
+                        fc.setRightDouble(0.0);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public static List<Content> emptyFields(List<Content> entryList) {
