@@ -8,8 +8,8 @@ import java.util.*;
 import static java.util.stream.Collectors.*;
 
 public class ContentService {
-
     private final Map<String, Value> contentMap;
+    private final static Double EMPTY = 0.0;
 
     public ContentService(Map<String, Value> contentMap) {
         this.contentMap = contentMap;
@@ -53,10 +53,6 @@ public class ContentService {
     }
 
     public void update(Content fc) {
-        if(fc.getRightDouble() == null) {
-            fc.setRightDouble(0.0);
-        }
-
         if (contentMap.containsKey(fc.getLeftValue().getName())){
             List<Value> relations = new ArrayList<>();
 
@@ -76,10 +72,12 @@ public class ContentService {
                         Double cnt = fc.getLeftDouble();
                         fc.setRightDouble(value2 * value1 * cnt);
                     } else {
-                        fc.setRightDouble(0.0);
+                        fc.setRightDouble(EMPTY);
                     }
                 }
             });
+        } else {
+            fc.setRightDouble(EMPTY);
         }
     }
 
