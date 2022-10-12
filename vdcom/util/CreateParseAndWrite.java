@@ -49,6 +49,7 @@ public class CreateParseAndWrite {
                      "15 ring = 2.5 bar\n" +
                      "1 pyramid = ? bar\n" +
                      "1 giraffe = ? hare\n" +
+                     "1 wolf = ? hare\n" +
                      "0.5 byte = ? cat\n" +
                      "2 kilobyte = ? bit\n";
 
