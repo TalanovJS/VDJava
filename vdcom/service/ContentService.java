@@ -23,9 +23,7 @@ public class ContentService {
                 .filter(f -> f.getRightDouble() != null)
                 .collect(toList());
 
-        filledContentReverse(filled);
-
-        filled.forEach(content -> {
+        filledContentReverse(filled).forEach(content -> {
             Value leftValue = content.getLeftValue();
             Value rightValue = content.getRightValue();
 
